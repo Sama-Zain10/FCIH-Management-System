@@ -1,0 +1,5 @@
+export * from "./auth/auth.route.js"
+export * from "./admin/admin.route.js"
+export * from "./student/student.route.js"
+export * from "./course/course.route.js"
+export * from "./grade/grade.route.js"

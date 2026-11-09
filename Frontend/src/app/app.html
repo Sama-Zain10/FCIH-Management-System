@@ -1,0 +1,18 @@
+﻿<app-navbar *ngIf="showNavbar"></app-navbar>
+
+<main class="content-area" [class.full-width]="!showNavbar">
+  <div class="topbar" *ngIf="showNavbar">
+    <a routerLink="/profile" class="user-chip">
+      <div class="user-avatar">
+        {{ currentUser?.name?.charAt(0) || 'U' }}
+      </div>
+      <span class="user-name">
+        {{ currentUser?.name || currentUser?.email }}
+      </span>
+    </a>
+  </div>
+
+  <router-outlet></router-outlet>
+</main>
+
+<app-footer *ngIf="showNavbar"></app-footer>

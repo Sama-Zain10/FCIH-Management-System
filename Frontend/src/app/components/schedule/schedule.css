@@ -1,0 +1,414 @@
+* {
+  box-sizing: border-box;
+}
+
+.content {
+  padding: 2.5rem 3rem;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f8fafc;
+  min-height: 100vh;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #334155;
+}
+
+.avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #7c3aed;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+}
+
+/* Stats */
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.stat-card.highlight {
+  background: linear-gradient(135deg, #7c3aed, #4c1d95);
+  color: #fff;
+}
+
+.stat-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: inherit;
+  opacity: 0.85;
+}
+
+.stat-icon {
+  background: rgba(124,58,237,0.1);
+  border-radius: 8px;
+  padding: 0.4rem 0.6rem;
+}
+
+.stat-value {
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin: 0.5rem 0 0.2rem;
+}
+
+.stat-sub {
+  font-size: 0.85rem;
+  opacity: 0.75;
+}
+
+/* Main grid */
+.main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+}
+
+.day-block {
+  margin-bottom: 2rem;
+}
+
+.day-title {
+  border-left: 4px solid #7c3aed;
+  padding-left: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.day-title h3 {
+  margin: 0;
+  color: #1e1b4b;
+}
+
+.session-card {
+  display: flex;
+  gap: 1.5rem;
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  align-items: center;
+}
+
+.session-time {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 70px;
+}
+
+.session-time .label {
+  font-size: 0.7rem;
+  color: #94a3b8;
+}
+
+.session-time .time {
+  font-weight: 700;
+  color: #6d28d9;
+  font-size: 1.1rem;
+}
+
+.session-details h4 {
+  margin: 0 0 0.4rem;
+  color: #1e1b4b;
+}
+
+.meta {
+  display: flex;
+  gap: 1.25rem;
+  font-size: 0.85rem;
+  color: #64748b;
+}
+
+/* Side panel */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.calendar-card, .library-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.calendar-nav button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: #64748b;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0.4rem;
+  text-align: center;
+  font-size: 0.85rem;
+}
+
+.day-name {
+  color: #94a3b8;
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.day-cell {
+  padding: 0.4rem 0;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #1e293b;
+}
+
+.day-cell.faded {
+  color: #cbd5e1;
+}
+
+.day-cell.today {
+  background: #7c3aed;
+  color: #fff;
+  font-weight: 700;
+}
+
+.day-cell.selected {
+  border: 2px solid #7c3aed;
+  color: #7c3aed;
+  font-weight: 700;
+}
+
+.library-card h4 {
+  margin: 0 0 0.3rem;
+  color: #1e1b4b;
+}
+
+.library-card p {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.library-image {
+  background: #1e293b;
+  border-radius: 12px;
+  height: 140px;
+  display: flex;
+  align-items: flex-end;
+  padding: 0.75rem;
+}
+
+.view-map-btn {
+  background: rgba(255,255,255,0.15);
+  border: none;
+  color: #fff;
+  padding: 0.5rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+/* ===========================
+   Responsive Design
+=========================== */
+
+/* Tablet */
+@media (max-width: 992px) {
+
+  .content {
+    padding: 2rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .stats-row {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .side-panel {
+    order: -1;
+  }
+
+  .calendar-card,
+  .library-card {
+    width: 100%;
+  }
+
+}
+
+
+/* Mobile */
+@media (max-width: 768px) {
+
+  .content {
+    padding: 1rem;
+  }
+
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .page-header h1 {
+    font-size: 2rem;
+  }
+
+  .stats-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    padding: 1.2rem;
+  }
+
+  .stat-value {
+    font-size: 1.8rem;
+  }
+
+  .main-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  .session-card {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .session-time {
+    min-width: auto;
+    align-items: flex-start;
+  }
+
+  .session-details {
+    width: 100%;
+  }
+
+  .meta {
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .calendar-card,
+  .library-card {
+    padding: 1rem;
+  }
+
+  .calendar-grid {
+    gap: .25rem;
+  }
+
+  .day-cell {
+    padding: .3rem 0;
+    font-size: .8rem;
+  }
+
+  .library-image {
+    height: 170px;
+  }
+
+  .view-map-btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+}
+
+
+/* Small Phones */
+@media (max-width: 480px) {
+
+  .content {
+    padding: .8rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .stat-card {
+    padding: 1rem;
+  }
+
+  .stat-value {
+    font-size: 1.6rem;
+  }
+
+  .stat-sub {
+    font-size: .75rem;
+  }
+
+  .day-title h3 {
+    font-size: 1rem;
+  }
+
+  .session-details h4 {
+    font-size: .95rem;
+  }
+
+  .meta {
+    font-size: .75rem;
+  }
+
+  .calendar-card,
+  .library-card {
+    padding: .9rem;
+  }
+
+  .library-image {
+    height: 140px;
+  }
+
+  .view-map-btn {
+    font-size: .75rem;
+    padding: .6rem;
+  }
+
+}

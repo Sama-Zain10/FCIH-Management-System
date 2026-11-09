@@ -1,0 +1,255 @@
+<div class="content">
+  <header class="page-header">
+    <h1>Users Management</h1>
+  <button class="btn-add" (click)="openAddStudent()">
+    + Add Student
+  </button>
+  </header>
+
+  <div class="table-card">
+    <div class="table-header">
+      <span class="col-name">NAME</span>
+      <span class="col-email">EMAIL</span>
+      <span class="col-role">ROLE</span>
+      <span class="col-actions">ACTIONS</span>
+    </div>
+
+    <div *ngIf="loading" class="loading-text">Loading users...</div>
+    <div *ngIf="errorMsg" class="error-text">{{ errorMsg }}</div>
+
+    <div class="table-row" *ngFor="let user of users">
+      <div class="col-name">
+        <div class="avatar-sm">{{ user.name.charAt(0) }}</div>
+        <span>{{ user.name }}</span>
+      </div>
+      <div class="col-email">{{ user.email }}</div>
+      <div class="col-role">
+        <span class="role-badge" [class.admin]="user.role === 'admin'">
+          {{ user.role.toUpperCase() }}
+        </span>
+      </div>
+      <div class="col-actions">
+        <button class="btn-edit" (click)="openEdit(user)">✏ Edit</button>
+        <button class="btn-delete" (click)="confirmDelete(user)">🗑 Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Edit Modal -->
+<div class="modal-overlay" *ngIf="showEditModal">
+
+  <div class="modal-box">
+
+    <h3>Edit User</h3>
+
+
+    <div class="field">
+      <label>Name</label>
+      <input 
+        type="text"
+        [(ngModel)]="selectedUser!.name">
+    </div>
+
+
+    <div class="field">
+      <label>Email</label>
+      <input 
+        type="email"
+        [(ngModel)]="selectedUser!.email">
+    </div>
+
+    <div class="field">
+      <label>Age</label>
+      <input 
+        type="number"
+        [(ngModel)]="selectedUser!.age">
+    </div>
+
+
+    <div class="field">
+      <label>Gender</label>
+
+      <select [(ngModel)]="selectedUser!.gender">
+
+        <option value="male">
+          Male
+        </option>
+
+        <option value="female">
+          Female
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+      <label>Role</label>
+
+      <select [(ngModel)]="selectedUser!.role">
+
+        <option value="student">
+          Student
+        </option>
+
+        <option value="admin">
+          Admin
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+      <label>Student ID</label>
+
+      <input 
+        type="text"
+        [(ngModel)]="selectedUser!.studentId">
+
+    </div>
+
+
+    <div class="field">
+      <label>Department</label>
+
+      <input 
+        type="text"
+        [(ngModel)]="selectedUser!.department">
+
+    </div>
+
+
+
+    <div class="modal-actions">
+
+      <button 
+        class="btn-cancel"
+        (click)="closeEdit()">
+        Cancel
+      </button>
+
+
+      <button 
+        class="btn-save"
+        (click)="saveEdit()">
+        Save Changes
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+</div>
+<!-- Delete Confirm Modal -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm">
+  <div class="modal-box small">
+    <h3>Delete User</h3>
+    <p>Are you sure you want to delete <strong>{{ userToDelete?.name }}</strong>? This cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cancelDelete()">Cancel</button>
+      <button class="btn-delete-confirm" (click)="deleteUser()">Delete</button>
+    </div>
+  </div>
+</div>
+<!-- Add Student Modal -->
+<div class="modal-overlay" *ngIf="showAddModal">
+
+  <div class="modal-box">
+
+    <h3>Add Student</h3>
+
+
+    <div class="field">
+      <label>Name</label>
+      <input 
+        type="text"
+        [(ngModel)]="newStudent.name">
+    </div>
+
+
+    <div class="field">
+      <label>Email</label>
+      <input 
+        type="email"
+        [(ngModel)]="newStudent.email">
+    </div>
+
+
+    <div class="field">
+      <label>Password</label>
+      <input 
+        type="password"
+        [(ngModel)]="newStudent.password">
+    </div>
+
+
+    <div class="field">
+      <label>Age</label>
+      <input 
+        type="number"
+        [(ngModel)]="newStudent.age">
+    </div>
+
+
+    <div class="field">
+      <label>Gender</label>
+
+      <select [(ngModel)]="newStudent.gender">
+
+        <option value="male">
+          Male
+        </option>
+
+        <option value="female">
+          Female
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <div class="field">
+      <label>Student ID</label>
+      <input 
+        type="text"
+        [(ngModel)]="newStudent.studentId">
+    </div>
+
+
+    <div class="field">
+      <label>Department</label>
+      <input 
+        type="text"
+        [(ngModel)]="newStudent.department">
+    </div>
+
+
+
+    <div class="modal-actions">
+
+      <button 
+        class="btn-cancel"
+        (click)="closeAddStudent()">
+        Cancel
+      </button>
+
+
+      <button 
+        class="btn-save"
+        (click)="addStudent()">
+        Save
+      </button>
+
+
+    </div>
+
+
+  </div>
+
+</div>

@@ -1,0 +1,157 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* ================= Top Bar ================= */
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1.25rem 3rem 0;
+}
+
+.user-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 0.4rem 0.9rem 0.4rem 0.4rem;
+  border-radius: 30px;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all .25s ease;
+}
+
+.user-chip:hover {
+  box-shadow: 0 4px 14px rgba(124, 58, 237, 0.18);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #7c3aed;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: .95rem;
+  flex-shrink: 0;
+}
+
+.user-name {
+  color: #1e1b4b;
+  font-weight: 600;
+  font-size: .95rem;
+  white-space: nowrap;
+}
+
+/* ================= Layout ================= */
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.body-grid {
+  flex: 1;
+  display: block;
+}
+
+.content-area {
+  margin-left: 256px;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f7f7ff, #ffffff);
+  transition: margin .3s ease;
+}
+
+.content-area.full-width {
+  margin-left: 0;
+  width: 100%;
+}
+
+/* ================= Tablet ================= */
+
+@media (max-width: 1024px) {
+
+  .content-area {
+    margin-left: 220px;
+  }
+
+  .content-area.full-width {
+    margin-left: 0;
+  }
+
+  .topbar {
+    padding: 1rem 2rem 0;
+  }
+
+}
+
+/* ================= Mobile ================= */
+
+@media (max-width:768px) {
+
+  .content-area {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .content-area.full-width {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .topbar {
+    justify-content: center;
+    padding: 1rem;
+  }
+
+  .user-chip {
+    width: 100%;
+    max-width: 280px;
+    justify-content: center;
+  }
+
+  .user-avatar {
+    width: 34px;
+    height: 34px;
+    font-size: .85rem;
+  }
+
+  .user-name {
+    font-size: .9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+}
+
+/* ================= Small Mobile ================= */
+
+@media (max-width:480px) {
+
+  .topbar {
+    padding: .8rem;
+  }
+
+  .user-chip {
+    padding: .45rem .7rem;
+    gap: .5rem;
+  }
+
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+  }
+
+  .user-name {
+    font-size: .85rem;
+  }
+
+}

@@ -1,0 +1,101 @@
+<section class="auth-page">
+  <div class="auth-wrapper">
+    <aside class="promo">
+      <div class="promo-inner">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div class="brand-name">Academic Curator</div>
+        </div>
+
+        <h1 class="promo-title">Refine your study workflow.</h1>
+        <p class="promo-sub">Continue your academic journey with focused planning, fast access to records, and a student portal built for scholarship.</p>
+
+        <div class="promo-badges">
+          <div class="badge">
+            <div class="badge-title">ACADEMIC FOCUS</div>
+            <div class="badge-sub">24/7 productivity</div>
+          </div>
+          <div class="badge">
+            <div class="badge-title">STUDENT PORTAL</div>
+            <div class="badge-sub">Secure access</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="form-side">
+      <div class="form-card">
+        <h2>Create Account</h2>
+        <p class="lead">Begin your journey in the Academic Sanctuary.</p>
+
+        <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" novalidate>
+          <div class="field full">
+            <label for="name">Full Name</label>
+            <input id="name" name="name" type="text" placeholder="Full Name" [(ngModel)]="model.name" required />
+            <p class="validation-text" *ngIf="submitted && registerForm.controls['name']?.invalid">Full name is required.</p>
+          </div>
+
+          <div class="row">
+            <div class="field half">
+              <label for="studentId">Student ID</label>
+              <input id="studentId" name="studentId" type="text" placeholder="ID-88291" [(ngModel)]="model.studentId" [required]="needsStudentFields" />
+              <p class="validation-text" *ngIf="submitted && needsStudentFields && registerForm.controls['studentId']?.invalid">Student ID is required for students.</p>
+            </div>
+
+            <div class="field half">
+              <label for="registerEmail">Email Address</label>
+              <input id="registerEmail" name="email" type="email" placeholder="alex@academy.edu" [(ngModel)]="model.email" required />
+              <p class="validation-text" *ngIf="submitted && registerForm.controls['email']?.invalid">A valid email address is required.</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="field half">
+              <label for="age">Age</label>
+              <input id="age" name="age" type="number" min="5" max="60" [(ngModel)]="model.age" required />
+              <p class="validation-text" *ngIf="submitted && registerForm.controls['age']?.invalid">Age is required between 5 and 60.</p>
+            </div>
+
+            <div class="field half">
+              <label for="gender">Gender</label>
+              <select id="gender" name="gender" [(ngModel)]="model.gender" required>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+
+
+
+          <div class="field full" *ngIf="needsStudentFields">
+            <label for="department">Department</label>
+            <input id="department" name="department" type="text" placeholder="Computer Science" [(ngModel)]="model.department" required />
+            <p class="validation-text" *ngIf="submitted && registerForm.controls['department']?.invalid">Department is required for students.</p>
+          </div>
+
+          <div class="field full">
+            <label for="registerPassword">Password</label>
+            <input id="registerPassword" name="password" type="password" placeholder="● ● ● ● ● ● ●" [(ngModel)]="model.password" required minlength="6" />
+            <p class="validation-text" *ngIf="submitted && registerForm.controls['password']?.invalid">Password is required and must be at least 6 characters.</p>
+          </div>
+
+          <div class="field full">
+            <label for="confirmPassword">Confirm Password</label>
+            <input id="confirmPassword" name="confirmPassword" type="password" placeholder="● ● ● ● ● ● ●" [(ngModel)]="model.confirmPassword" required />
+            <p class="validation-text" *ngIf="submitted && registerForm.controls['confirmPassword']?.invalid">Confirm password is required.</p>
+            <p class="validation-text" *ngIf="submitted && passwordDoesNotMatch">Passwords do not match.</p>
+          </div>
+
+          <label class="checkbox">
+            <input type="checkbox" name="agree" />
+            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          </label>
+
+          <button type="submit" class="primary-btn">Create Account</button>
+
+          <p class="switch-link">Already have an account? <a routerLink="/login">Back to Login</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

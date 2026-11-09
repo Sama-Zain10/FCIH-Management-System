@@ -1,0 +1,109 @@
+<div class="content">
+  <header class="page-header">
+    <h1>Grades</h1>
+
+   
+  </header>
+
+  <section class="stats-row">
+    <div class="stat-card">
+      <span class="stat-label">Cumulative GPA</span>
+      <div class="stat-value-row">
+        <span class="stat-value">{{ cumulativeGPA }}</span>
+        <span class="stat-change">+{{ gpaChange }}</span>
+      </div>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">Credits Earned</span>
+      <div class="stat-value-row">
+        <span class="stat-value">{{ creditsEarned }}</span>
+      </div>
+      <div class="stat-sub">/ {{ creditsRequired }} required</div>
+    </div>
+
+    <div class="stat-card">
+      <span class="stat-label">Current Semester</span>
+      <div class="stat-value-row">
+        <span class="stat-value semester">{{ currentSemester }}</span>
+      </div>
+      <div class="stat-sub">
+        Week {{ currentWeek }} of {{ totalWeeks }}
+      </div>
+    </div>
+
+    <div class="stat-card highlight">
+      <span class="stat-label">Academic Standing</span>
+
+      <div class="stat-value-row">
+        <span class="stat-value standing">{{ academicStanding }}</span>
+      </div>
+
+      <span class="standing-badge">{{ standingLabel }}</span>
+    </div>
+  </section>
+
+  <div class="performance-card">
+
+    <div class="performance-header">
+      <h3>Course Academic Performance</h3>
+        <a
+  class="transcript-link"
+  (click)="downloadTranscript()"
+  style="cursor: pointer;"
+>
+  <span class="download-icon">⬇</span>
+  Transcript PDF
+</a>
+    </div>
+
+    <p><b>Total Courses:</b> {{ courses.length }}</p>
+
+    <div *ngIf="courses.length === 0">
+      No Courses Found
+    </div>
+
+    <div *ngIf="courses.length > 0">
+
+      <div class="table-header">
+        <span class="col-course">COURSE NAME</span>
+        <span class="col-credits">CREDITS</span>
+        <span class="col-status">STATUS</span>
+        <span class="col-grade">GRADE</span>
+      </div>
+
+      <div class="table-row" *ngFor="let course of courses">
+
+        <div class="col-course">
+          <h4>{{ course.courseName }}</h4>
+          <span class="course-meta">
+            {{ course.courseCode }} • {{ course.instructor }}
+          </span>
+        </div>
+
+        <div class="col-credits">
+          {{ course.credits }}
+        </div>
+
+        <div class="col-status">
+          <span
+            class="status-badge"
+            [class.in-progress]="course.status==='In Progress'"
+            [class.completed]="course.status==='Completed'">
+
+            {{ course.status }}
+
+          </span>
+        </div>
+
+        <div class="col-grade">
+          {{ course.grade }}
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

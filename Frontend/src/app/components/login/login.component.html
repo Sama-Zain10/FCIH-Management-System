@@ -1,0 +1,55 @@
+<section class="auth-page">
+  <div class="auth-wrapper">
+    <aside class="promo">
+      <div class="promo-inner">
+        <div class="brand">
+          <div class="brand-mark">A</div>
+          <div class="brand-name">Academic Curator</div>
+        </div>
+
+        <h1 class="promo-title">Refine your study workflow.</h1>
+        <p class="promo-sub">Continue your academic journey with focused planning, fast access to records, and a student portal built for scholarship.</p>
+
+        <div class="promo-badges">
+          <div class="badge">
+            <div class="badge-title">ACADEMIC FOCUS</div>
+            <div class="badge-sub">24/7 productivity</div>
+          </div>
+          <div class="badge">
+            <div class="badge-title">STUDENT PORTAL</div>
+            <div class="badge-sub">Secure access</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <div class="form-side">
+      <div class="form-card">
+        <h2>Welcome Back</h2>
+        <p class="lead">Log in to manage classes, grades, and student progress in one academic dashboard.</p>
+
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" novalidate>
+          <div class="field full">
+            <label for="email">Student ID or Email</label>
+            <input id="email" name="email" type="email" placeholder="e.g. 2024001 or alex@edu.com" [(ngModel)]="model.email" required />
+            <p class="validation-text" *ngIf="submitted && loginForm.controls['email'].invalid">Enter a valid email or student ID.</p>
+          </div>
+
+          <div class="field full">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" placeholder="● ● ● ● ● ● ●" [(ngModel)]="model.password" required minlength="6" />
+            <p class="validation-text" *ngIf="submitted && loginForm.controls['password'].invalid">Password is required and must be at least 6 characters.</p>
+          </div>
+
+          <div class="action-row">
+            <a class="forgot-link" routerLink="/forgot-password">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="primary-btn">Log In</button>
+
+          <p class="switch-link">New to Academic Curator? <a routerLink="/register">Create an account</a></p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

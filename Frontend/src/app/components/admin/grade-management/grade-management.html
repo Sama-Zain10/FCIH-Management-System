@@ -1,0 +1,154 @@
+<div class="content">
+  <header class="page-header">
+    <h1>Grades Management</h1>
+    <button class="btn-add" (click)="openAddGrade()">+ Add Grade</button>
+  </header>
+
+  <div class="table-card">
+    <div class="table-header">
+      <span class="col-student">STUDENT</span>
+      <span class="col-course">COURSE</span>
+      <span class="col-status">STATUS</span>
+      <span class="col-grade">GRADE</span>
+      <span class="col-actions">ACTIONS</span>
+    </div>
+
+    <div *ngIf="loading" class="loading-text">Loading grades...</div>
+    <div *ngIf="errorMsg" class="error-text">{{ errorMsg }}</div>
+
+    <div class="table-row" *ngFor="let g of grades">
+      <div class="col-student">
+        <h4>{{ g.studentName }}</h4>
+        <span class="sub-text">{{ g.studentEmail }}</span>
+      </div>
+      <div class="col-course">
+        <h4>{{ g.courseTitle }}</h4>
+        <span class="sub-text">{{ g.courseCode }}</span>
+      </div>
+      <div class="col-status">
+        <span class="status-badge" [class.in-progress]="g.status === 'In Progress'" [class.completed]="g.status === 'Completed'">
+          {{ g.status === 'In Progress' ? 'IN PROGRESS' : g.status.toUpperCase() }}
+        </span>
+      </div>
+      <div class="col-grade">{{ g.grade }}</div>
+      <div class="col-actions">
+        <button class="btn-edit" (click)="openEdit(g)">✏ Edit</button>
+        <button class="btn-delete" (click)="confirmDelete(g)">🗑 Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Add Grade Modal -->
+<div class="modal-overlay" *ngIf="showAddModal">
+  <div class="modal-box">
+    <h3>Add Grade</h3>
+
+    <div class="field">
+      <label>Student</label>
+      <select [(ngModel)]="newGrade.studentId">
+        <option value="" disabled selected>Select a student</option>
+        <option *ngFor="let s of students" [value]="s._id">{{ s.name }} ({{ s.email }})</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Course</label>
+      <select [(ngModel)]="newGrade.courseId">
+        <option value="" disabled selected>Select a course</option>
+        <option *ngFor="let c of courses" [value]="c._id">{{ c.name }} ({{ c.code }})</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Semester</label>
+      <input type="text" [(ngModel)]="newGrade.semester" placeholder="e.g. Spring 2026" />
+    </div>
+
+    <div class="field">
+      <label>Score (optional)</label>
+      <input type="number" [(ngModel)]="newGrade.score" min="0" max="100" />
+    </div>
+
+    <div class="field">
+      <label>Letter Grade</label>
+      <select [(ngModel)]="newGrade.letter">
+        <option *ngFor="let g of gradeOptions" [value]="g">{{ g }}</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Status</label>
+      <select [(ngModel)]="newGrade.status">
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+        <option value="Failed">Failed</option>
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeAddGrade()">Cancel</button>
+      <button class="btn-save" (click)="addGrade()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div class="modal-overlay" *ngIf="showEditModal">
+  <div class="modal-box">
+    <h3>Edit Grade</h3>
+
+    <div class="field">
+      <label>Student</label>
+      <input type="text" [value]="selectedGrade?.studentName" disabled />
+    </div>
+
+    <div class="field">
+      <label>Course</label>
+      <input type="text" [value]="selectedGrade?.courseTitle" disabled />
+    </div>
+
+    <div class="field">
+      <label>Semester</label>
+      <input type="text" [(ngModel)]="selectedGrade!.semester" />
+    </div>
+
+    <div class="field">
+      <label>Score</label>
+      <input type="number" [(ngModel)]="selectedGrade!.score" min="0" max="100" />
+    </div>
+
+    <div class="field">
+      <label>Status</label>
+      <select [(ngModel)]="selectedGrade!.status">
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+        <option value="Failed">Failed</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>Grade</label>
+      <select [(ngModel)]="selectedGrade!.grade">
+        <option *ngFor="let gr of gradeOptions" [value]="gr">{{ gr }}</option>
+      </select>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeEdit()">Cancel</button>
+      <button class="btn-save" (click)="saveEdit()">Save Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm">
+  <div class="modal-box small">
+    <h3>Delete Grade Record</h3>
+    <p>Are you sure you want to delete the grade record for <strong>{{ gradeToDelete?.studentName }}</strong>?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cancelDelete()">Cancel</button>
+      <button class="btn-delete-confirm" (click)="deleteGrade()">Delete</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,83 @@
+<div class="content">
+  <header class="page-header">
+    <h1>Courses Management</h1>
+    <button class="btn-add" (click)="openAdd()">+ Add Course</button>
+  </header>
+
+  <div class="table-card">
+    <div class="table-header">
+      <span class="col-title">COURSE</span>
+      <span class="col-instructor">INSTRUCTOR</span>
+      <span class="col-credits">CREDITS</span>
+      <span class="col-capacity">CAPACITY</span>
+      <span class="col-actions">ACTIONS</span>
+    </div>
+
+    <div *ngIf="loading" class="loading-text">Loading courses...</div>
+    <div *ngIf="errorMsg" class="error-text">{{ errorMsg }}</div>
+
+    <div class="table-row" *ngFor="let course of courses">
+      <div class="col-title">
+        <h4>{{ course.name }}</h4>
+        <span class="course-code">{{ course.code }}</span>
+      </div>
+      <div class="col-instructor">{{ course.instructor }}</div>
+      <div class="col-credits">{{ course.credits }}</div>
+      <div class="col-capacity">{{ course.enrolledCount || 0 }} / {{ course.capacity }}</div>
+      <div class="col-actions">
+        <button class="btn-edit" (click)="openEdit(course)">✏ Edit</button>
+        <button class="btn-delete" (click)="confirmDelete(course)">🗑 Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Edit / Add Modal -->
+<div class="modal-overlay" *ngIf="showEditModal">
+  <div class="modal-box">
+    <h3>{{ isNewCourse ? 'Add Course' : 'Edit Course' }}</h3>
+
+    <div class="field">
+      <label>Course Title</label>
+      <input type="text" [(ngModel)]="selectedCourse!.name" />
+    </div>
+
+    <div class="field">
+      <label>Course Code</label>
+      <input type="text" [(ngModel)]="selectedCourse!.code" placeholder="e.g. CSCI-440" />
+    </div>
+
+    <div class="field">
+      <label>Instructor</label>
+      <input type="text" [(ngModel)]="selectedCourse!.instructor" />
+    </div>
+
+    <div class="row-fields">
+      <div class="field">
+        <label>Credits</label>
+        <input type="number" [(ngModel)]="selectedCourse!.credits" />
+      </div>
+      <div class="field">
+        <label>Capacity</label>
+        <input type="number" [(ngModel)]="selectedCourse!.capacity" />
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeEdit()">Cancel</button>
+      <button class="btn-save" (click)="saveCourse()">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirm -->
+<div class="modal-overlay" *ngIf="showDeleteConfirm">
+  <div class="modal-box small">
+    <h3>Delete Course</h3>
+    <p>Are you sure you want to delete <strong>{{ courseToDelete?.name }}</strong>?</p>
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="cancelDelete()">Cancel</button>
+      <button class="btn-delete-confirm" (click)="deleteCourse()">Delete</button>
+    </div>
+  </div>
+</div>

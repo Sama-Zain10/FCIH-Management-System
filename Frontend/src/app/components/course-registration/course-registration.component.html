@@ -1,0 +1,116 @@
+<section class="course-registration-page">
+  <div class="page-header">
+    <h1>Course Registration</h1>
+  </div>
+
+  <!-- Registration Status Card -->
+  <div class="registration-card">
+    <div class="card-status">
+      <span class="badge">{{ registrationInfo.status }}</span>
+    </div>
+    
+    <div class="card-content">
+      <div class="semester-info">
+        <h2>{{ registrationInfo.semester }}</h2>
+        <p>Finalize your curriculum for the upcoming semester.<br>
+          You have priority enrollment status.</p>
+      </div>
+
+      <div class="credit-load">
+        <div class="credit-label">CREDIT LOAD</div>
+        <div class="credit-value">
+          <span class="used">{{ registrationInfo.creditsUsed }}</span>
+          <span class="slash">/</span>
+          <span class="max">{{ registrationInfo.maxCredits }}</span>
+        </div>
+        <div class="credit-bar-container">
+          <div class="credit-bar" [style.width.%]="creditsPercent"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Search Section -->
+  <div class="search-section">
+    <input 
+      type="text" 
+      placeholder="Search courses, instructors..." 
+      [(ngModel)]="searchTerm"
+      (input)="filterCourses()"
+      class="search-input"
+    >
+  </div>
+
+  <!-- Available Curriculum Section -->
+  <div class="curriculum-section">
+    <h2 class="section-title">Available Curriculum</h2>
+
+    <!-- Table Header -->
+    <div class="table-header">
+      <div class="col-course">COURSE NAME</div>
+      <div class="col-instructor">INSTRUCTOR</div>
+      <div class="col-credits">CREDITS</div>
+      <div class="col-status">STATUS</div>
+      <div class="col-action">ACTION</div>
+    </div>
+
+    <!-- Course Rows -->
+    <div class="table-body">
+      <div *ngFor="let course of filteredCourses" class="course-row">
+        <div class="col-course">
+          <div class="course-code">{{ course.code }}</div>
+          <div class="course-info">
+            <div class="course-name">{{ course.name }}</div>
+            <div class="course-section">{{ course.section }}</div>
+          </div>
+        </div>
+
+        <div class="col-instructor">
+          <div class="instructor-info">
+            <div class="instructor-avatar" [style.backgroundColor]="getInstructorColor(course.instructorInitial)">
+              {{ course.instructorInitial }}
+            </div>
+            <div class="instructor-name">{{ course.instructor }}</div>
+          </div>
+        </div>
+
+        <div class="col-credits">{{ course.credits }}</div>
+
+        <div class="col-status">
+          <span class="status-badge" [ngClass]="getStatusBadgeClass(course.status)">
+            {{ course.status }}
+          </span>
+        </div>
+
+        <div class="col-action">
+          <button 
+            *ngIf="course.action === 'Drop'"
+            (click)="onAction(course, 'Drop')"
+            [ngClass]="getActionButtonClass(course.action)"
+          >
+            {{ course.action }}
+          </button>
+          <button 
+            *ngIf="course.action === 'Register'"
+            (click)="onAction(course, 'Register')"
+            [ngClass]="getActionButtonClass(course.action)"
+          >
+            {{ course.action }}
+          </button>
+          <button 
+            *ngIf="course.action === 'Waitlist'"
+            (click)="onAction(course, 'Waitlist')"
+            [ngClass]="getActionButtonClass(course.action)"
+          >
+            {{ course.action }}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- No Results -->
+    <div *ngIf="filteredCourses.length === 0" class="no-results">
+      <p>No courses found matching your search.</p>
+    </div>
+  </div>
+</section>

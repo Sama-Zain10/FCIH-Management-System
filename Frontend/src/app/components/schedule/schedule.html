@@ -1,0 +1,95 @@
+<div class="content">
+  <header class="page-header">
+    <h1>Schedule</h1>
+    
+  </header>
+
+  <section class="stats-row">
+    <div class="stat-card">
+      <div class="stat-top">
+        <span>Total Courses</span>
+        <div class="stat-icon">📖</div>
+      </div>
+      <div class="stat-value">{{ totalCourses }}</div>
+      <div class="stat-sub">Active Semester</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-top">
+        <span>Total Credits</span>
+        <div class="stat-icon">⭐</div>
+      </div>
+      <div class="stat-value">{{ totalCredits }}</div>
+      <div class="stat-sub">Targeting Honor Roll</div>
+    </div>
+
+    <div class="stat-card highlight">
+      <div class="stat-top">
+        <span>Weekly Hours</span>
+        <div class="stat-icon">🕐</div>
+      </div>
+      <div class="stat-value">{{ weeklyHours.toFixed(1) }}</div>
+      <div class="stat-sub">Lecture &amp; Lab Hours</div>
+    </div>
+  </section>
+
+  <div class="main-grid">
+    <div class="schedule-list">
+      <div class="day-block" *ngFor="let dayItem of weekDays">
+        <div class="day-title" [style.borderColor]="dayItem.accentColor">
+          <h3>{{ dayItem.day }}</h3>
+        </div>
+
+        <div class="session-card" *ngFor="let session of dayItem.sessions">
+          <div class="session-time">
+            <span class="label">START</span>
+            <span class="time">{{ session.startTime }}</span>
+          </div>
+          <div class="session-details">
+            <h4>{{ session.title }}</h4>
+            <div class="meta">
+              <span>📍 {{ session.location }}</span>
+              <span>👤 {{ session.instructor }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="side-panel">
+      <div class="calendar-card">
+        <div class="calendar-header">
+          <h4>{{ calendarMonth }}</h4>
+          <div class="calendar-nav">
+            <button>‹</button>
+            <button>›</button>
+          </div>
+        </div>
+
+        <div class="calendar-grid">
+          <span class="day-name" *ngFor="let d of ['MO','TU','WE','TH','FR','SA','SU']">{{ d }}</span>
+
+          <ng-container *ngFor="let row of calendarDays; let rowIndex = index">
+            <span
+              *ngFor="let day of row"
+              class="day-cell"
+              [class.faded]="!isCurrentMonthDay(day, rowIndex)"
+              [class.today]="day === today && isCurrentMonthDay(day, rowIndex)"
+              [class.selected]="day === selectedDay && isCurrentMonthDay(day, rowIndex)"
+            >
+              {{ day }}
+            </span>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="library-card">
+        <h4>Campus Library</h4>
+        <p>Quiet study spaces available until 10 PM</p>
+        <div class="library-image">
+          <button class="view-map-btn">🗺 VIEW MAP</button>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

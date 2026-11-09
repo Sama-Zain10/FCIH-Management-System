@@ -1,0 +1,60 @@
+<button class="menu-btn" (click)="toggleSidebar()">
+  ☰
+</button>
+
+<div
+  class="overlay"
+  *ngIf="isSidebarOpen"
+  (click)="closeSidebar()">
+</div>
+
+<aside
+  class="sidebar"
+  [class.open]="isSidebarOpen">
+
+  <div class="sidebar-header">
+
+    <button
+      class="close-btn"
+      (click)="closeSidebar()">
+      ✕
+    </button>
+
+    <div class="brand">
+      <h1>The Curator</h1>
+      <p class="subtitle">ACADEMIC SANCTUARY</p>
+    </div>
+
+  </div>
+
+  <nav class="sidebar-nav">
+
+    <a
+      *ngFor="let link of links"
+      [routerLink]="link.path"
+      routerLinkActive="active-link"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="nav-item"
+      (click)="closeSidebar()">
+
+      <span class="nav-icon">{{ link.icon }}</span>
+      <span>{{ link.label }}</span>
+
+    </a>
+
+  </nav>
+
+  <div class="sidebar-footer">
+
+    <button
+      class="logout-btn"
+      (click)="logout()">
+
+      <span>🚪</span>
+      <span>Logout</span>
+
+    </button>
+
+  </div>
+
+</aside>
